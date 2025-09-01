@@ -17,8 +17,4 @@ class CustomException(Exception):
     def __str__(self):
         return self.error_message
 
-# Test divide by zero
-try:
-    1 / 0
-except Exception:
-    raise CustomException("Divide by zero occurred", sys.exc_info())
+
