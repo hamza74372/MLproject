@@ -4,7 +4,8 @@ import pandas as pd
 from sklearn.model_selection import train_test_split
 from dataclasses import dataclass
 from src.exception import CustomException
-from src.logger import logger
+from src.logger import logger  # Ensure this matches your logging setup
+from src.components.data_transformation import DataTransformation
 
 @dataclass
 class DataIngestionConfig:
@@ -43,5 +44,10 @@ class DataIngestion:
             raise CustomException(e, sys)
 
 if __name__ == "__main__":
-    obj = DataIngestion()
-    obj.initiate_data_ingestion()
+    ingestion = DataIngestion()
+    train_data, test_data = ingestion.initiate_data_ingestion()
+
+    transformation = DataTransformation()
+    train_arr, test_arr, preprocessor_path = transformation.initiate_data_transformation(train_data, test_data)
+
+    print(f"Data transformation completed. Preprocessor saved at: {preprocessor_path}")
